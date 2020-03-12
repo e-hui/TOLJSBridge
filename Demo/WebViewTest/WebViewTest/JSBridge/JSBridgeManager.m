@@ -21,6 +21,7 @@
 {
     self = [super init];
     if (self) {
+        _jsFuncPre = @"tol";
         _plugin = [[PluginOfJS alloc]init];
     }
     return self;
@@ -40,7 +41,7 @@
     sharedManager.plugin.wk = wk;
     sharedManager.plugin.vc = vc;
     
-    NSString *path = [[NSBundle mainBundle]pathForResource:@"MB_Base" ofType:@"js"];
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"TOL_Base" ofType:@"js"];
     [sharedManager registeWithFile:path];
     
     return sharedManager;
@@ -97,7 +98,7 @@
 }
 
 -(void)registeFuncWith:(NSString *)functionName className:(NSString *)className {
-    [_plugin registeFuncWith:functionName className:className];
+    [_plugin registeFuncWith:functionName className:className jsFuncPre:_jsFuncPre];
 }
 
 -(void)sendMessage:(WKScriptMessage *)message {

@@ -1,21 +1,21 @@
 
 //定位
 locateAction = function(data, callback) {
-    mb_sendMessage('MBCommonPlugin', 'locateAction', data, callback);
+    tol_sendMessage('MBCommonPlugin', 'locateAction', data, callback);
 };
 
 //关闭页面
 PopToApp = function(data, callback) {
-    mb_sendMessage('MBCommonPlugin', 'popToApp', data, callback);
+    tol_sendMessage('MBCommonPlugin', 'popToApp', data, callback);
 };
 
 //计步器
 qureyStep = function(data, callback) {
-    mb_sendMessage('MBCommonPlugin', 'qureyStep', data, callback);
+    tol_sendMessage('MBCommonPlugin', 'qureyStep', data, callback);
 };
 
 postHandel = function() {
-    mb_sendMessage('MBCommonPlugin', 'postHandel');
+    tol_sendMessage('MBCommonPlugin', 'postHandel');
 }
 
 testHandel = function(data, callback) {

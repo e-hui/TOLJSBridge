@@ -1,9 +1,9 @@
 //
 //  WKProcessPool+ShareProcessPool.m
-//  YGAP
+//  WebViewTest
 //
-//  Created by @HUI on 2019/6/3.
-//  Copyright © 2019 justforYOU. All rights reserved.
+//  Created by @hui on 2019/6/19.
+//  Copyright © 2019 @hui. All rights reserved.
 //
 
 #import "WKProcessPool+ShareProcessPool.h"

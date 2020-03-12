@@ -33,7 +33,7 @@ typedef void(^PluginCallbackBlock)(id _Nullable data);
 -(void)callError: (NSString *)errorMessage;
 -(void)callHandler:(NSString *)handlerName data:(nullable id)data responseCallback:(PluginCallbackBlock)responseCallback;
 -(void)callRespons;
--(void)registeFuncWith:(NSString *)functionName className:(NSString *)className;
+-(void)registeFuncWith:(NSString *)functionName className:(NSString *)className jsFuncPre:(NSString *)funcPre;
 
 -(void)enableLogging;
 -(void)setLogMaxLength:(int)length;

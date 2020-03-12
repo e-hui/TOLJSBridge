@@ -37,4 +37,8 @@
     }];
 }
 
+-(void)regist {
+    NSLog(@"Test Register");
+}
+
 @end

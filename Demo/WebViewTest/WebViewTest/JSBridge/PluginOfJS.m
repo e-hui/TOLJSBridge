@@ -62,7 +62,7 @@
 
 -(void)clearAll {
     NSAssert(_wk != nil, @"空的webview对象");
-    [self callHandler:@"mb_clearAll" data:nil responseCallback:^(id  _Nullable data) {
+    [self callHandler:@"tol_clearAll" data:nil responseCallback:^(id  _Nullable data) {
         __strong WKWebView *wk = self.wk;
         [wk.configuration.userContentController removeScriptMessageHandlerForName:kMsgHandlerName];
         [wk.configuration.userContentController removeScriptMessageHandlerForName:kCallBackHandlerName];
@@ -75,7 +75,7 @@
 -(void)callBack:(id)backData {
     if (![NSJSONSerialization isValidJSONObject:backData]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSString *js = [NSString stringWithFormat:@"mb_callSuccess(%ld, '%@')", (long)self.taskId, backData];
+            NSString *js = [NSString stringWithFormat:@"tol_callSuccess(%ld, '%@')", (long)self.taskId, backData];
             [self.wk evaluateJavaScript:js completionHandler:^(id _Nullable action, NSError * _Nullable error) {
                 NSLog(@"action: %@, error: %@", action, error);
             }];
@@ -88,7 +88,7 @@
         NSString *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
         NSString *jsonStr = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSString *js = [NSString stringWithFormat:@"mb_callSuccess(%ld, %@)", (long)self.taskId, jsonStr];
+            NSString *js = [NSString stringWithFormat:@"tol_callSuccess(%ld, %@)", (long)self.taskId, jsonStr];
             [self.wk evaluateJavaScript:js completionHandler:^(id _Nullable action, NSError * _Nullable error) {
                 NSLog(@"action: %@, error: %@", action, error);
             }];
@@ -100,7 +100,7 @@
 
 -(void)callError:(NSString *)errorMessage {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *js = [NSString stringWithFormat:@"mb_callError(%ld, '%@')", (long)self.taskId, errorMessage];
+        NSString *js = [NSString stringWithFormat:@"tol_callError(%ld, '%@')", (long)self.taskId, errorMessage];
         [self.wk evaluateJavaScript:js completionHandler:^(id _Nullable action, NSError * _Nullable error) {
             NSLog(@"action: %@, error: %@", action, error);
         }];
@@ -116,8 +116,13 @@
     [self sendTo:handlerName responseCallback:responseCallback];
 }
 
--(void)registeFuncWith:(NSString *)functionName className:(NSString *)className {
-    NSString *jsStr = [NSString stringWithFormat:@"mb_%@ = function(data, callback) {mb_sendMessage('%@', '%@', data, callback);};", functionName, className, functionName];
+-(void)registeFuncWith:(NSString *)functionName className:(NSString *)className jsFuncPre:(nonnull NSString *)funcPre {
+    NSString *pre = [funcPre stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSMutableString *str = [NSMutableString stringWithString:@""];
+    if (pre != nil && ![pre isEqual: @""]) {
+        str = [NSMutableString stringWithFormat:@"%@_", pre];
+    }
+    NSString *jsStr = [NSString stringWithFormat:@"%@%@ = function(data, callback) {tol_sendMessage('%@', '%@', data, callback);};", str, functionName, className, functionName];
     [self.wk evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         NSLog(@"result: %@, error: %@", result, result);
     }];
@@ -144,7 +149,7 @@
 -(void)dispatchMessage:(NSDictionary*)message {
     NSString *messageJSON = [self serializeMessage:message pretty:true];
     [self log:@"SEND" json:messageJSON];
-    NSString* javascriptCommand = [NSString stringWithFormat:@"mb_getMessageFromNative(%@);", messageJSON];
+    NSString* javascriptCommand = [NSString stringWithFormat:@"tol_getMessageFromNative(%@);", messageJSON];
     if ([[NSThread currentThread] isMainThread]) {
         [self evaluateJavascript:javascriptCommand];
     } else {

@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JSBridgeManager : NSObject
 
+@property (nonatomic, copy) NSString *jsFuncPre;
+
 +(instancetype)managerWith:(WKWebView *)wk vc:(UIViewController *)vc;
 
 -(void)reset;

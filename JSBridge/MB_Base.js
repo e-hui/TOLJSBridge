@@ -1,6 +1,6 @@
 
-MB_Queue = [];
-MB_Task = {
+TOL_Queue = [];
+TOL_Task = {
     id: 0,
     callback: function(){},
     init: function(id, callback) {
@@ -10,25 +10,25 @@ MB_Task = {
     }
 };
 
-mb_callSuccess = function(i, data) {
+tol_callSuccess = function(i, data) {
     console.log('len:'+i);
-    if (MB_Queue.length > i && MB_Queue[i].callback) {
-        MB_Queue[i].callback('00', data);
+    if (TOL_Queue.length > i && TOL_Queue[i].callback) {
+        TOL_Queue[i].callback('00', data);
     }
 };
 
-mb_callError = function(i, msg) {
-    if (MB_Queue.length > i && MB_Queue[i].callback) {
-        MB_Queue[i].callback('11', msg);
+tol_callError = function(i, msg) {
+    if (TOL_Queue.length > i && TOL_Queue[i].callback) {
+        TOL_Queue[i].callback('11', msg);
     }
 };
 
-mb_sendMessage = function(className, funcName, data, callback) {
-    MB_Queue.push(MB_Task.init(MB_Queue.length, callback));
-    window.webkit.messageHandlers.MSGJSCALLNATIVE.postMessage({className: className, functionName: funcName, taskId: MB_Queue.length - 1, data: data});
+tol_sendMessage = function(className, funcName, data, callback) {
+    TOL_Queue.push(TOL_Task.init(TOL_Queue.length, callback));
+    window.webkit.messageHandlers.MSGJSCALLNATIVE.postMessage({className: className, functionName: funcName, taskId: TOL_Queue.length - 1, data: data});
 };
 
-mb_getMessageFromNative = function(messageJSON) {
+tol_getMessageFromNative = function(messageJSON) {
     var message = messageJSON;
     var responseCallback;
     //设置回调
@@ -36,7 +36,7 @@ mb_getMessageFromNative = function(messageJSON) {
         var callbackResponseId = message.callbackId;
         responseCallback = function(responseData) {
             //发起对回调的调用
-            mb_sendCallBack(JSON.stringify({handlerName:message.handlerName, responseId:callbackResponseId, responseData:responseData}));
+            tol_sendCallBack(JSON.stringify({handlerName:message.handlerName, responseId:callbackResponseId, responseData:responseData}));
         };
     }
     if (message.handlerName) {
@@ -50,12 +50,12 @@ mb_getMessageFromNative = function(messageJSON) {
     }
 }
 
-mb_sendCallBack = function(responseData) {
+tol_sendCallBack = function(responseData) {
     window.webkit.messageHandlers.MSGNATIVECALLBACK.postMessage({response: responseData});
 }
 
-mb_clearAll = function(data, callback) {
-    MB_Queue = [];
+tol_clearAll = function(data, callback) {
+    TOL_Queue = [];
     if (callback) {
         callback();
     }

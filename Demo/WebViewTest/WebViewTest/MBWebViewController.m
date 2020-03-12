@@ -72,6 +72,8 @@ UINavigationControllerDelegate>
     NSArray *paths = paths = [[NSBundle mainBundle]pathsForResourcesOfType:@".js" inDirectory:@"www"];
     [_manager registeJSWith:paths];
     [_manager setParamsWith:@"qureyStep" value:@{@"qurey":@"stepStep"}];
+    _manager.jsFuncPre = @"mb";
+    [_manager registeFuncWith:@"regist" className:@"MBCommonPlugin"];
 }
 
 #pragma mark—————————————webView代理方法部分——————————————
