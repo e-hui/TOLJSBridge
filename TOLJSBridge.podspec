@@ -80,7 +80,7 @@ A JSBridge for iOS hybrid, which implement by Objective-C.
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/MrTongHui/TOLJSBridge.git", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/MrTongHui/TOLJSBridge.git", :tag => "v#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -94,7 +94,7 @@ A JSBridge for iOS hybrid, which implement by Objective-C.
   spec.source_files  = "JSBridge/**/*.{h,m}"
   # spec.exclude_files = "Classes/Exclude"
 
-  spec.public_header_files = "JSBridge/JSBridgeManager.h"
+  # spec.public_header_files = "JSBridge/JSBridgeManager.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
