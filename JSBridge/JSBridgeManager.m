@@ -40,8 +40,10 @@
     
     sharedManager.plugin.wk = wk;
     sharedManager.plugin.vc = vc;
-    
-    NSString *path = [[NSBundle mainBundle]pathForResource:@"TOL_Base" ofType:@"js"];
+
+    NSString *bundlePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"TOLJSBridge" ofType:@"bundle"];
+    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+    NSString *path = [bundle pathForResource:@"TOL_Base" ofType:@"js"];
     [sharedManager registeWithFile:path];
     
     return sharedManager;

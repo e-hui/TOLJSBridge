@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "TOLJSBridge"
-  spec.version      = "1.0.0"
+  spec.version      = "1.0.1"
   spec.summary      = "A JSBridge for iOS hybrid."
 
   # This description is used to generate tags and improve search results.
@@ -105,7 +105,7 @@ A JSBridge for iOS hybrid, which implement by Objective-C.
   #  non-essential files like tests, examples and documentation.
   #
 
-  spec.resource  = "JSBridge/TOL_Base.js"
+  spec.resource  = "JSBridge/**/*.js"
   # spec.resources = "Resources/*.png"
 
   # spec.preserve_paths = "FilesToSave", "MoreFilesToSave"
