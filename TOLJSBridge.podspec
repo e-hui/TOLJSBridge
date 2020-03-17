@@ -105,7 +105,7 @@ A JSBridge for iOS hybrid, which implement by Objective-C.
   #  non-essential files like tests, examples and documentation.
   #
 
-  spec.resource  = "JSBridge/MB_Base.js"
+  spec.resource  = "JSBridge/TOL_Base.js"
   # spec.resources = "Resources/*.png"
 
   # spec.preserve_paths = "FilesToSave", "MoreFilesToSave"
