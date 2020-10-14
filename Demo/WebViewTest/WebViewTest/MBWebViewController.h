@@ -9,9 +9,7 @@
 
 @interface MBWebViewController : UIViewController
 
-/** 外部URL  如果有外部URL 则直接加载 */
 @property (nonatomic,copy) NSString *URL;
-/** 政务系统的url（需要拼接参数） */
 @property (nonatomic,copy) NSString *SubURL;
 
 @end
